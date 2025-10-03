@@ -22,7 +22,7 @@ const CategoryPage = () => {
       <FilterControl handleSearch={setSearchValue} />
       <TableData
         columns={labelCategory}
-        rows={categories ?? []}
+        rows={categories || []}
         handleDelete={(id: string | number) =>
           destroyCategory.mutate(Number(id))
         }

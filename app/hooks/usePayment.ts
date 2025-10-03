@@ -1,8 +1,8 @@
 import { useMutation } from '@tanstack/react-query';
-import { PaymentPayload } from '../types/data';
+import { PaymentPayload, PaymentResponse } from '../types/data';
 
 export const usePayment = () => {
-  const createPayment = useMutation<any, Error, PaymentPayload>({
+  const createPayment = useMutation<PaymentResponse, Error, PaymentPayload>({
     mutationFn: async (payload: PaymentPayload) => {      
       const response = await fetch(process.env.NEXT_PUBLIC_N8N_CREATE_PAYMENT_URL as string, {
         method: 'POST',

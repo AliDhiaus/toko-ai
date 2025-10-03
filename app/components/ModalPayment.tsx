@@ -33,7 +33,7 @@ const PaymentModal: React.FC<PaymentModalProps> = ({ details, onClose }) => {
           </div>
           
           <p className="text-sm text-gray-600 pt-2">Total Pembayaran:</p>
-          <h3 className="text-2xl font-extrabold text-red-600">{formatePrice(details.gross_amount)}</h3>
+          <h3 className="text-2xl font-extrabold text-red-600">{formatePrice(Number(details.gross_amount))}</h3>
         </div>
         
         <p className="text-xs text-gray-500 text-center">*Status pesanan akan diperbarui otomatis setelah Anda melakukan transfer.</p>

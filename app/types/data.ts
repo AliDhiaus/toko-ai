@@ -12,6 +12,7 @@ export interface userType {
 export interface categoryType {
   id: number;
   name: string;
+  [key: string]: unknown;
 }
 
 export interface productType {
@@ -21,23 +22,36 @@ export interface productType {
   price: number;
   category_id: number;
   image: File | string;
+  [key: string]: unknown;
 }
 
 export interface orderType {
   id: string;
-  product_id: string;
+  product_id: string | null;
   total: number;
   status: string;
   payment: string;
   amount: number;
   createdAt: string;
+  [key: string]: unknown;
 }
 
 export interface PaymentPayload {
+  gross_amount: number;
   order_id: string;
   order_ids: string[];
-  gross_amount: number;
   bank: string;
+}
+
+export interface PaymentResponse {
+  status: string;
+  order_id_midtrans: string;
+  transaction_id: string;
+  gross_amount: string;
+  payment_type: string;
+  bank: string;
+  va_number: string;
+  order_ids: string[];
 }
 
 export interface DataListItem {
@@ -49,7 +63,7 @@ export interface DataListItem {
 export interface MidtransResponse {
   status: string;
   order_id_midtrans: string;
-  gross_amount: number;
+  gross_amount: string;
   bank: string;
   va_number: string;
 }

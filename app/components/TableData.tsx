@@ -51,7 +51,7 @@ const TableData: FC<TableDataProps> = ({
                     <td key={idx} className="px-4 py-2 text-sm text-gray-700">
                       <Image
                         src={value as string}
-                        alt={item.name}
+                        alt={item.name as string}
                         width={100}
                         height={100}
                         className="object-cover rounded-md"
@@ -73,16 +73,20 @@ const TableData: FC<TableDataProps> = ({
                     key={idx}
                     className="px-4 py-2 text-sm text-gray-700 whitespace-nowrap overflow-hidden text-ellipsis max-w-xs"
                     title={
-                      typeof value === "object"
+                      typeof value === "object" && value !== null
                         ? JSON.stringify(value)
-                        : String(value)
+                        : String(value ?? "-")
                     }
                   >
-                    {value === null
-                      ? "-"
-                      : typeof value === "object"
-                      ? JSON.stringify(value)
-                      : value}
+                    {(() => {
+                      if (value == null) return "-";
+
+                      if (typeof value === "object") {
+                        return JSON.stringify(value);
+                      }
+
+                      return String(value);
+                    })()}
                   </td>
                 );
               })}

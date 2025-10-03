@@ -13,7 +13,7 @@ export interface Variant {
 
 export interface Row {
   id: string | number;
-  [key: string]: any; 
+  [key: string]: unknown;
 }
 
 export interface TableDataProps {

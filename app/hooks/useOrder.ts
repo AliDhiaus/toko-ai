@@ -19,7 +19,7 @@ export const useOrder = () => {
   });
 
   const createOrder = useMutation({
-    mutationFn: async (payload: Partial<orderType> & { product_id: string[] }) => {
+    mutationFn: async (payload: Partial<orderType>) => {
       const { error } = await supabase.from("orders").insert(payload);
       if (error) throw new Error(error.message);
     },
