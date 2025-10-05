@@ -51,10 +51,10 @@ const TableData: FC<TableDataProps> = ({
                     <td key={idx} className="px-4 py-2 text-sm text-gray-700">
                       <Image
                         src={value as string}
-                        alt={item.name as string}
+                        alt={"Product Image"}
                         width={100}
                         height={100}
-                        className="object-cover rounded-md"
+                        className="w-16 h-16 object-cover rounded-md"
                       />
                     </td>
                   );

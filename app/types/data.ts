@@ -41,6 +41,7 @@ export interface PaymentPayload {
   order_id: string;
   order_ids: string[];
   bank: string;
+  order_time: string;
 }
 
 export interface PaymentResponse {
@@ -52,6 +53,7 @@ export interface PaymentResponse {
   bank: string;
   va_number: string;
   order_ids: string[];
+  expiry_time: string;
 }
 
 export interface DataListItem {
@@ -59,16 +61,7 @@ export interface DataListItem {
     name: string;
 }
 
-
-export interface MidtransResponse {
-  status: string;
-  order_id_midtrans: string;
-  gross_amount: string;
-  bank: string;
-  va_number: string;
-}
-
 export interface PaymentModalProps {
-  details: MidtransResponse;
+  details: PaymentResponse;
   onClose: () => void;
 }

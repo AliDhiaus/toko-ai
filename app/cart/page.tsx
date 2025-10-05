@@ -4,31 +4,33 @@ import TableData from "../components/TableData";
 import { useOrder } from "../hooks/useOrder";
 import { labelOrder } from "../lib/dataTable";
 import { ShoppingCart, DollarSign, Loader2 } from "lucide-react";
-import { formatePrice } from "../utils";
+import { formatePrice, formatMidtransTime } from "../utils";
 import { usePayment } from "../hooks/usePayment";
 import PaymentModal from "../components/ModalPayment";
-import { MidtransResponse } from "../types/data";
+import { PaymentResponse } from "../types/data";
 import BankSelect from "../components/BankSelect";
 
 const OrderPage = () => {
   const { ordersQuery } = useOrder();
   const { createPayment } = usePayment();
-  const [paymentDetails, setPaymentDetails] = useState<MidtransResponse | null>(null);
+  const [paymentDetails, setPaymentDetails] = useState<PaymentResponse | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedBank, setSelectedBank] = useState("");
 
-  const orders = ordersQuery.data || [];
+  const orders = ordersQuery.data?.filter(order => order.status === "pending") || [];
   const totalHarga = orders.reduce((total, order) => total + order.total, 0);
 
   const handlePayment = async () => {
     try {
       const orderIds = orders.map(order => order.id);
+      const orderTime = formatMidtransTime();
 
-      const responseData: MidtransResponse = await createPayment.mutateAsync({
+      const responseData: PaymentResponse = await createPayment.mutateAsync({
         order_id: `order-${Date.now()}`,
         order_ids: orderIds,
         gross_amount: totalHarga,
         bank: selectedBank,
+        order_time: orderTime
       });
 
       setPaymentDetails(responseData);
@@ -39,7 +41,6 @@ const OrderPage = () => {
     }
   };
 
-  console.log(orders)
   return (
     <div className="min-h-screen bg-gray-50 p-10 space-y-10">
       <div className="bg-white shadow-sm rounded-2xl p-6 space-y-6">

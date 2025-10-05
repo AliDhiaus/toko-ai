@@ -12,7 +12,7 @@ export default function Home() {
   const { ordersQuery } = useOrder();
 
   const { data, isLoading } = productsQuery;
-
+  const statusPending = ordersQuery.data?.filter(product => product.status === "pending"); ;
   if (isLoading) {
     return (
       <div className="flex items-center justify-center h-screen bg-gray-100">
@@ -20,7 +20,6 @@ export default function Home() {
       </div>
     );
   }
-
   return (
     <div className="min-h-screen bg-gray-100 p-6">
       <header className="mb-8 text-center">
@@ -34,7 +33,7 @@ export default function Home() {
         >
           <ShoppingCartIcon className="w-5 h-5" />
           <span className="absolute -top-2 -right-2 bg-white text-indigo-600 rounded-full px-2 py-0.5 text-xs font-bold shadow-md">
-            {ordersQuery.data?.length || 0}
+            {statusPending?.length || 0}
           </span>
         </Link>
         <FilterControl />
